@@ -1,0 +1,212 @@
+//
+//  ViewController.swift
+//  MapKitAppEnd
+//
+//  Created by Zeynep Sevgi on 6.12.2023.
+//
+
+import UIKit
+import MapKit
+import CoreLocation
+
+class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate{
+    
+    
+    var matches : [MKMapItem] = []
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var searchBarDestination : UISearchBar!
+    
+    var sourceLocation : MKMapItem?
+    var destinationLocation : MKMapItem?
+    var annotation = MKPointAnnotation()
+    
+    
+    lazy var geocoder = CLGeocoder()
+    
+    
+    
+    lazy var locationManager: CLLocationManager = {
+        var manager = CLLocationManager()
+        manager.distanceFilter = 10
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        return manager
+    }()
+    
+    var resultSearchController : UISearchController? = nil
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+      
+        let locationSearchController = storyboard!.instantiateViewController(withIdentifier: "LocationSearchController") as! LocationSearchController
+        locationSearchController.callback = {(location,name,item) in
+            self.updateLocationonMap(to: location, with: name)
+            self.sourceLocation = item
+        }
+        
+        resultSearchController = UISearchController(searchResultsController: locationSearchController)
+        resultSearchController?.searchResultsUpdater = locationSearchController as! any UISearchResultsUpdating
+        
+        let searchBar =  resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Enter a place for search"
+        navigationItem.searchController = resultSearchController
+        searchBarDestination.delegate = self
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        locationSearchController.mapView = mapView
+        self.mapView.delegate = self
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(_:)))
+        mapView.addGestureRecognizer(longPressRecognizer)
+    }
+
+    func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status == .authorizedWhenInUse || status == .authorizedAlways)
+        {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    func updateLocationonMap(to location: CLLocation, with: String?) {
+        let point = MKPointAnnotation()
+        point.title = title
+        point.coordinate = location.coordinate
+        for a in self.mapView.annotations {
+            self.mapView.removeAnnotation(a)
+        }
+        self.mapView.addAnnotation(point)
+        
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+        self.mapView.setRegion(region, animated: true)
+    }
+    
+    
+    @IBAction func onLocationButtonTapped() {
+        updateLocationonMap(to: locationManager.location ?? CLLocation(), with: "Test Location")
+
+    }
+    
+    
+    @objc func addAnnotation(_ recognizer : UILongPressGestureRecognizer)
+    {
+        if recognizer.state == .began {
+            let point = recognizer.location(in: mapView)
+            let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
+            mapView.removeAnnotation(annotation)
+           // annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            geocoder.reverseGeocodeLocation(location) { [self] (placemarks, error) in
+                
+                if let error = error {
+                    print("Unable to reverse code location")
+                } else {
+                    if let placemarks = placemarks, let placemark = placemarks.first {
+                        self.searchBarDestination.text = placemark.name
+                    } else {
+                        self.searchBarDestination.text = "No Address Found"
+                    }
+                }
+                
+            }
+            mapView.addAnnotation(annotation)
+            destinationLocation = annotationToMapItem(annotation: annotation)
+            displayPathBetweenTwoPoints()
+        }
+    }
+    
+    
+    func annotationToMapItem(annotation : MKAnnotation) -> MKMapItem {
+        let placemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
+        let item = MKMapItem(placemark: placemark)
+        item.name = placemark.name ?? "Annotation"
+        return item
+    }
+    
+    
+    
+    func displayPathBetweenTwoPoints() {
+        let request = MKDirections.Request()
+        request.source = sourceLocation
+        request.destination = destinationLocation
+        request.transportType = MKDirectionsTransportType.automobile
+        request.requestsAlternateRoutes = true
+        let directions = MKDirections(request: request)
+        directions.calculate {(response, error) in
+            guard let response = response else {
+                return
+            }
+            if error == nil {
+                let directionsResponse = response
+                let routes = directionsResponse.routes as! [MKRoute]
+                for route in routes {
+                    self.mapView.addOverlay(route.polyline, level : MKOverlayLevel.aboveRoads)
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+                }
+                
+            } else {
+                print(error)
+            }
+        }
+    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyLine = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: polyLine)
+            renderer.strokeColor = UIColor.blue
+            renderer.lineWidth = 7
+            return renderer
+        }
+        return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin"){
+            return annotationView
+        } else {
+            let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            annotationView.canShowCallout = true
+            return annotationView
+        }
+    }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let mapView = mapView,
+              let searchBarText = searchBar.text else {
+            return
+        }
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchBarText
+        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        search.start { response, _ in
+            guard let response = response else {
+                return
+            }
+            self.matches = response.mapItems
+           // self.tableView.reloadData()
+            let searchbarController = self.storyboard!.instantiateViewController(withIdentifier: "SearchBarController") as! SearchBarController
+            searchbarController.mapView = self.mapView
+            searchbarController.matches = self.matches
+            
+            searchbarController.callback =  {(location, name, item) in
+                self.updateLocationonMap(to: location, with: name)
+               // self.destinationLocation = item
+                self.navigationController?.popViewController(animated: true)
+                self.displayPathBetweenTwoPoints()
+                
+            }
+            self.navigationController?.pushViewController(searchbarController, animated: true)
+           
+            
+        }
+
+    }
+    
+}
+
