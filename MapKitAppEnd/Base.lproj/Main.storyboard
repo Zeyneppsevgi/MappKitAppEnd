@@ -17,8 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P1W-bM-rlF">
-                                <rect key="frame" x="0.0" y="127" width="393" height="651"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P1W-bM-rlF">
+                                <rect key="frame" x="0.0" y="127" width="393" height="592"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgl-Zh-klx">
@@ -43,23 +44,57 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="vMQ-K0-of5"/>
                                 </connections>
                             </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiP-dU-Sw1">
+                                <rect key="frame" x="113" y="766" width="63" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTS-gi-4EZ">
+                                <rect key="frame" x="279" y="766" width="77" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="car.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QxU-JA-AOs">
+                                <rect key="frame" x="81" y="732.33333333333337" width="33" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5pB-tB-Uov">
+                                <rect key="frame" x="267" y="733" width="33" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Süre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4u-HZ-pZO">
+                                <rect key="frame" x="231" y="766" width="77" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mesafe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zd-tA-y3G">
+                                <rect key="frame" x="48" y="766" width="77" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="R5K-YU-0yc" firstAttribute="leading" secondItem="P1W-bM-rlF" secondAttribute="leading" id="3Mg-aS-aBL"/>
-                            <constraint firstItem="P1W-bM-rlF" firstAttribute="top" secondItem="R5K-YU-0yc" secondAttribute="bottom" id="JG1-GK-B6G"/>
                             <constraint firstItem="R5K-YU-0yc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-20" id="OeG-nr-r9I"/>
                             <constraint firstItem="R5K-YU-0yc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="10" id="U5M-zd-m08"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="P1W-bM-rlF" secondAttribute="bottom" constant="40" id="ZG0-q4-86F"/>
                             <constraint firstItem="wgl-Zh-klx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="132" id="dVc-1R-VPb"/>
                             <constraint firstItem="wgl-Zh-klx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="315" id="nZ0-Nb-hYE"/>
-                            <constraint firstItem="R5K-YU-0yc" firstAttribute="trailing" secondItem="P1W-bM-rlF" secondAttribute="trailing" id="oJa-cQ-2Bf"/>
                             <constraint firstItem="R5K-YU-0yc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="t0q-Ff-fF6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rZ8-IE-7Pl"/>
                     <connections>
+                        <outlet property="distanceLabel" destination="YiP-dU-Sw1" id="gSr-4Q-gW2"/>
+                        <outlet property="durationLabel" destination="HTS-gi-4EZ" id="eC6-Tl-IRl"/>
                         <outlet property="mapView" destination="P1W-bM-rlF" id="7j3-CM-i7f"/>
                         <outlet property="searchBarDestination" destination="R5K-YU-0yc" id="MnK-vS-uBc"/>
                     </connections>
@@ -160,6 +195,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="car.fill" catalog="system" width="128" height="95"/>
+        <image name="clock.fill" catalog="system" width="128" height="123"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

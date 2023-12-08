@@ -16,6 +16,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBarDestination : UISearchBar!
     
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
     var annotation = MKPointAnnotation()
@@ -147,6 +150,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                 for route in routes {
                     self.mapView.addOverlay(route.polyline, level : MKOverlayLevel.aboveRoads)
                     self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+                    self.calculateDistanceAndDuration(start: self.sourceLocation!.placemark.coordinate, end: self.destinationLocation!.placemark.coordinate) { (distance, duration, error) in
+                        if let error = error {
+                                                print("Mesafe ve süre hesaplanamıyor: \(error.localizedDescription)")
+                                                return
+                                            }
+                                            self.distanceLabel.text = "\(distance ?? "")"
+                                            self.durationLabel.text = "\(duration ?? "")"
+                                            print("Mesafe : \(distance ?? "")")
+                                            print("Süre : \(duration ?? "")")
+
+                        
+                    }
                 }
                 
             } else {
@@ -157,7 +172,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polyLine = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyLine)
-            renderer.strokeColor = UIColor.blue
+            renderer.strokeColor = UIColor.orange
             renderer.lineWidth = 7
             return renderer
         }
@@ -173,6 +188,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             return annotationView
         }
     }
+    func calculateDistanceAndDuration(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, completion: @escaping (String?, String?, Error?) -> Void) {
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
+        request.transportType = .automobile // Ulaşım tipini araç olarak ayarlayabilirsiniz
+
+        let directions = MKDirections(request: request)
+        directions.calculate { (response, error) in
+            guard let route = response?.routes.first else {
+                completion(nil, nil, error)
+                return
+            }
+            let distance = route.distance // Metre cinsinden mesafe
+            let duration = route.expectedTravelTime // Saniye cinsinden süre
+
+            // Metreyi kilometreye çevirme
+            let distanceInKilometers = Measurement(value: distance, unit: UnitLength.meters).converted(to: .kilometers).value
+
+            // Saniyeyi dakikaya çevirme
+            let durationInMinutes = Int(duration / 60)
+
+            completion(String(format: "%.2f km", distanceInKilometers), "\(durationInMinutes) dakika", nil)
+        }
+    }
+
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
