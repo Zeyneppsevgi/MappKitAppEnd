@@ -13,6 +13,7 @@
 		7054291B2B20F0170014A5F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 705429192B20F0170014A5F9 /* Main.storyboard */; };
 		7054291D2B20F0180014A5F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7054291C2B20F0180014A5F9 /* Assets.xcassets */; };
 		705429202B20F0180014A5F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7054291E2B20F0180014A5F9 /* LaunchScreen.storyboard */; };
+		7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */; };
 		70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */; };
 		70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D72B2104770020CEF0 /* LocationCell.swift */; };
 		70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */; };
@@ -27,6 +28,7 @@
 		7054291C2B20F0180014A5F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7054291F2B20F0180014A5F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		705429212B20F0180014A5F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		70B5F0D72B2104770020CEF0 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				705429212B20F0180014A5F9 /* Info.plist */,
 				70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */,
 				70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */,
+				7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */,
 			);
 			path = MapKitAppEnd;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */,
 				70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */,
 				70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */,
+				7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */,
 				705429182B20F0170014A5F9 /* ViewController.swift in Sources */,
 				705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */,
 				705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */,

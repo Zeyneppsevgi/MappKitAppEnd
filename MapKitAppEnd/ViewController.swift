@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import UserNotifications
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate{
     
@@ -15,6 +16,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     var matches : [MKMapItem] = []
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBarDestination : UISearchBar!
+    
+    @IBOutlet weak var calendarButton: UIBarButtonItem!
     
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -42,7 +45,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-      
+        
         let locationSearchController = storyboard!.instantiateViewController(withIdentifier: "LocationSearchController") as! LocationSearchController
         locationSearchController.callback = {(location,name,item) in
             self.updateLocationonMap(to: location, with: name)
@@ -67,8 +70,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(_:)))
         mapView.addGestureRecognizer(longPressRecognizer)
+        
+       // checkForPermission()
     }
-
+    @IBAction func buttonTapped(_ sender: UIButton) {
+           // UIButton tıklandığında yapılacak işlemleri burada belirtin
+        let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
+                self.navigationController?.pushViewController(secondViewController, animated: true)
+       }
+   
+    
     func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if (status == .authorizedWhenInUse || status == .authorizedAlways)
         {
@@ -91,7 +102,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     @IBAction func onLocationButtonTapped() {
         updateLocationonMap(to: locationManager.location ?? CLLocation(), with: "Test Location")
-
+        
     }
     
     
@@ -101,7 +112,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             let point = recognizer.location(in: mapView)
             let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
             mapView.removeAnnotation(annotation)
-           // annotation = MKPointAnnotation()
+            // annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
             var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             geocoder.reverseGeocodeLocation(location) { [self] (placemarks, error) in
@@ -152,14 +163,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                     self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
                     self.calculateDistanceAndDuration(start: self.sourceLocation!.placemark.coordinate, end: self.destinationLocation!.placemark.coordinate) { (distance, duration, error) in
                         if let error = error {
-                                                print("Mesafe ve süre hesaplanamıyor: \(error.localizedDescription)")
-                                                return
-                                            }
-                                            self.distanceLabel.text = "\(distance ?? "")"
-                                            self.durationLabel.text = "\(duration ?? "")"
-                                            print("Mesafe : \(distance ?? "")")
-                                            print("Süre : \(duration ?? "")")
-
+                            print("Mesafe ve süre hesaplanamıyor: \(error.localizedDescription)")
+                            return
+                        }
+                        self.distanceLabel.text = "\(distance ?? "")"
+                        self.durationLabel.text = "\(duration ?? "")"
+                        print("Mesafe : \(distance ?? "")")
+                        print("Süre : \(duration ?? "")")
+                        
                         
                     }
                 }
@@ -193,7 +204,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
         request.transportType = .automobile // Ulaşım tipini araç olarak ayarlayabilirsiniz
-
+        
         let directions = MKDirections(request: request)
         directions.calculate { (response, error) in
             guard let route = response?.routes.first else {
@@ -202,17 +213,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             }
             let distance = route.distance // Metre cinsinden mesafe
             let duration = route.expectedTravelTime // Saniye cinsinden süre
-
+            
             // Metreyi kilometreye çevirme
             let distanceInKilometers = Measurement(value: distance, unit: UnitLength.meters).converted(to: .kilometers).value
-
+            
             // Saniyeyi dakikaya çevirme
             let durationInMinutes = Int(duration / 60)
-
+            
             completion(String(format: "%.2f km", distanceInKilometers), "\(durationInMinutes) dakika", nil)
         }
     }
-
+    
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -229,24 +240,69 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                 return
             }
             self.matches = response.mapItems
-           // self.tableView.reloadData()
+            // self.tableView.reloadData()
             let searchbarController = self.storyboard!.instantiateViewController(withIdentifier: "SearchBarController") as! SearchBarController
             searchbarController.mapView = self.mapView
             searchbarController.matches = self.matches
             
             searchbarController.callback =  {(location, name, item) in
                 self.updateLocationonMap(to: location, with: name)
-               // self.destinationLocation = item
+                // self.destinationLocation = item
                 self.navigationController?.popViewController(animated: true)
                 self.displayPathBetweenTwoPoints()
                 
             }
             self.navigationController?.pushViewController(searchbarController, animated: true)
-           
+            
             
         }
-
+        
     }
+    
+  /*  func checkForPermission(){
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .authorized:
+                self.dispatchNotification()
+            case .denied:
+                return
+            case .notDetermined:
+                notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
+                    if didAllow {
+                        self.dispatchNotification()
+                    }
+                }
+            default:
+                return
+                
+                
+            }
+            
+        }
+    }
+    func dispatchNotification() {
+        let identifier = "my-morning-notificaiton"
+        let title = "Time to work out!"
+        let body = "Don't be a lazy little butt!"
+        let hour = 12
+        let minute = 43
+        let isDaily = true
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        let calendar = Calendar.current
+        var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+        notificationCenter.add(request)
+    }*/
     
 }
 
