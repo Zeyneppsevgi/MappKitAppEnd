@@ -42,8 +42,8 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
     @objc func sendNotification() {
         let selectedDate = datePicker.date
         let content = UNMutableNotificationContent()
-        content.title = "Time to work out!"
-        content.body = "Don't be a lazy little butt!"
+        content.title = "Yola çıkma vakti!"
+        content.body = "Hedef için şimdi yola çıkmalısın!"
         content.sound = .default
         
         let calendar = Calendar.current
