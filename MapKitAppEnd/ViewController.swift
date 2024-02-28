@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  MapKitAppEnd
-//
-//  Created by Zeynep Sevgi on 6.12.2023.
-//
-
 import UIKit
 import MapKit
 import CoreLocation
@@ -22,6 +15,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
+    var carImageView: UIImageView!
+    var carLocation: CLLocationCoordinate2D?
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
     var annotation = MKPointAnnotation()
@@ -45,7 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
+        mapView.delegate = self
         let locationSearchController = storyboard!.instantiateViewController(withIdentifier: "LocationSearchController") as! LocationSearchController
         locationSearchController.callback = {(location,name,item) in
             self.updateLocationonMap(to: location, with: name)
@@ -71,7 +66,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(_:)))
         mapView.addGestureRecognizer(longPressRecognizer)
         
+        
+        
+        carImageView = UIImageView(image: UIImage(named: "car-icon"))
+        carImageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        mapView.addSubview(carImageView)
+        
        // checkForPermission()
+        
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
            // UIButton tıklandığında yapılacak işlemleri burada belirtin
@@ -135,12 +137,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }
     
     
-    func annotationToMapItem(annotation : MKAnnotation) -> MKMapItem {
-        let placemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
+  /*  func annotationToMapItem(annotation : MKAnnotation) -> MKMapItem {
+         let placemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
+          
         let item = MKMapItem(placemark: placemark)
         item.name = placemark.name ?? "Annotation"
         return item
-    }
+    }*/
+    func annotationToMapItem(annotation: MKAnnotation) -> MKMapItem {
+           guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
+               return MKMapItem()
+           }
+
+           let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
+           let item = MKMapItem(placemark: placemark)
+           item.name = placemark.name ?? "Annotation"
+           return item
+       }
     
     
     
@@ -149,7 +162,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         request.source = sourceLocation
         request.destination = destinationLocation
         request.transportType = MKDirectionsTransportType.automobile
-        request.requestsAlternateRoutes = true
+        request.requestsAlternateRoutes = false
         let directions = MKDirections(request: request)
         directions.calculate {(response, error) in
             guard let response = response else {
@@ -157,6 +170,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             }
             if error == nil {
                 let directionsResponse = response
+                let route = directionsResponse.routes.first
                 let routes = directionsResponse.routes as! [MKRoute]
                 for route in routes {
                     self.mapView.addOverlay(route.polyline, level : MKOverlayLevel.aboveRoads)
@@ -170,7 +184,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                         self.durationLabel.text = "\(duration ?? "")"
                         print("Mesafe : \(distance ?? "")")
                         print("Süre : \(duration ?? "")")
-                        
+                       
                         
                     }
                 }
@@ -223,9 +237,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             completion(String(format: "%.2f km", distanceInKilometers), "\(durationInMinutes) dakika", nil)
         }
     }
-    
-    
-    
+   
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let mapView = mapView,
               let searchBarText = searchBar.text else {
@@ -305,4 +317,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }*/
     
 }
+
 
