@@ -11,13 +11,16 @@ import UserNotifications
 
 class NotificationViewController: UIViewController, UNUserNotificationCenterDelegate {
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.locale = .current
+        datePicker.timeZone = .current
         datePicker.datePickerMode = .time
         datePicker.tintColor = .systemOrange
         return datePicker
     }()
+    
+    var estimatedTime : Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,26 +47,19 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
     }
     
     @objc func kontrolVeBildirimGonder() {
-        // şu anlık tarih ve saat bilgileri
-        let today = Date()
-        var calendar = Calendar.current
-        calendar.locale = .current
-        
-        
         // 1.adım : saat seç
-        let selectedDate = datePicker.date
+        var selectedDate = datePicker.date
+        print(datePicker.date.description(with: .current))
         print("Selected Date: \(selectedDate)")
         
         // 2.adım tahmini kaç dakika hesaplanması
         // örnek : 1 dakika
-        let tahminiSure = calculateEstimatedTime() // Bu kısmı gerçek tahmin fonksiyonunuzla değiştirin
+        let tahminiSure = self.estimatedTime // Bu kısmı gerçek tahmin fonksiyonunuzla değiştirin
 
         // 3.adım yola cıkmak için gereken zamanı hesapla
         // Tahmini süreyi seçili saatten çıkartarak hedef saati hesapla
         let cikisZaman = selectedDate.addingTimeInterval(-Double(tahminiSure)*60)
-    
-    
-        print("Şu an: \(today)")
+
         print("cikisZamani: \(cikisZaman)")
         print("hedeflenen Saat: \(selectedDate)")
         

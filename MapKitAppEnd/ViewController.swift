@@ -23,6 +23,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     lazy var geocoder = CLGeocoder()
     
+    private var estimatedTime = 0.0
+    
     
     
     lazy var locationManager: CLLocationManager = {
@@ -74,6 +76,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBAction func buttonTapped(_ sender: UIButton) {
            // UIButton tıklandığında yapılacak işlemleri burada belirtin
         let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
+        secondViewController.estimatedTime = self.estimatedTime
                 self.navigationController?.pushViewController(secondViewController, animated: true)
        }
    
@@ -179,9 +182,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                         }
                         self.distanceLabel.text = "\(distance ?? "")"
                         self.durationLabel.text = "\(duration ?? "")"
+
                         print("Mesafe : \(distance ?? "")")
                         print("Süre : \(duration ?? "")")
-                       
                         
                     }
                 }
@@ -230,6 +233,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             
             // Saniyeyi dakikaya çevirme
             let durationInMinutes = Int(duration / 60)
+            self.estimatedTime = Double(durationInMinutes)
             
             completion(String(format: "%.2f km", distanceInKilometers), "\(durationInMinutes) dakika", nil)
         }
