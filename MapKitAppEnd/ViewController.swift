@@ -15,8 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    var carImageView: UIImageView!
-    var carLocation: CLLocationCoordinate2D?
+
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
     var annotation = MKPointAnnotation()
@@ -67,10 +66,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         mapView.addGestureRecognizer(longPressRecognizer)
         
         
-        
-        carImageView = UIImageView(image: UIImage(named: "car-icon"))
-        carImageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        mapView.addSubview(carImageView)
+      
         
        // checkForPermission()
         
@@ -82,11 +78,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
        }
    
     
-    func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+   /* func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if (status == .authorizedWhenInUse || status == .authorizedAlways)
         {
             locationManager.startUpdatingLocation()
         }
+    }*/
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+        mapView.setRegion(region, animated: true)
+
+        // Pil tasarrufu için konum güncellemeyi durdur
+        locationManager.stopUpdatingLocation()
     }
     func updateLocationonMap(to location: CLLocation, with: String?) {
         let point = MKPointAnnotation()
@@ -136,14 +140,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
     }
     
-    
-  /*  func annotationToMapItem(annotation : MKAnnotation) -> MKMapItem {
-         let placemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
-          
-        let item = MKMapItem(placemark: placemark)
-        item.name = placemark.name ?? "Annotation"
-        return item
-    }*/
+
     func annotationToMapItem(annotation: MKAnnotation) -> MKMapItem {
            guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
                return MKMapItem()
@@ -270,6 +267,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
         
     }
+
+
     
   /*  func checkForPermission(){
         let notificationCenter = UNUserNotificationCenter.current()
