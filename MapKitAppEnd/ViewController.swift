@@ -15,7 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-
+    
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
     var annotation = MKPointAnnotation()
@@ -26,10 +26,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     private var estimatedTime = 0.0
     
     
-    
     lazy var locationManager: CLLocationManager = {
         var manager = CLLocationManager()
-        manager.distanceFilter = 10
+        manager.distanceFilter = kCLDistanceFilterNone
         manager.desiredAccuracy = kCLLocationAccuracyBest
         return manager
     }()
@@ -39,8 +38,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Kullanıcı konum izni iste
+        locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        // Harita ayarları
+        mapView.showsUserLocation = true
         mapView.delegate = self
         let locationSearchController = storyboard!.instantiateViewController(withIdentifier: "LocationSearchController") as! LocationSearchController
         locationSearchController.callback = {(location,name,item) in
@@ -68,33 +73,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         mapView.addGestureRecognizer(longPressRecognizer)
         
         
-      
         
-       // checkForPermission()
+        
+        // checkForPermission()
         
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
-           // UIButton tıklandığında yapılacak işlemleri burada belirtin
+        // UIButton tıklandığında yapılacak işlemleri burada belirtin
         let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
         secondViewController.estimatedTime = self.estimatedTime
-                self.navigationController?.pushViewController(secondViewController, animated: true)
-       }
-   
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
     
-   /* func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if (status == .authorizedWhenInUse || status == .authorizedAlways)
-        {
-            locationManager.startUpdatingLocation()
-        }
-    }*/
+    
+    /* func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+     if (status == .authorizedWhenInUse || status == .authorizedAlways)
+     {
+     locationManager.startUpdatingLocation()
+     }
+     }*/
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
         mapView.setRegion(region, animated: true)
+        
 
         // Pil tasarrufu için konum güncellemeyi durdur
         locationManager.stopUpdatingLocation()
+        mapView.setUserTrackingMode(.follow, animated: true)
+
     }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    
     func updateLocationonMap(to location: CLLocation, with: String?) {
         let point = MKPointAnnotation()
         point.title = title
@@ -143,17 +158,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
     }
     
-
+    
     func annotationToMapItem(annotation: MKAnnotation) -> MKMapItem {
-           guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
-               return MKMapItem()
-           }
-
-           let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
-           let item = MKMapItem(placemark: placemark)
-           item.name = placemark.name ?? "Annotation"
-           return item
-       }
+        guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
+            return MKMapItem()
+        }
+        
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
+        let item = MKMapItem(placemark: placemark)
+        item.name = placemark.name ?? "Annotation"
+        return item
+    }
     
     
     
@@ -182,7 +197,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                         }
                         self.distanceLabel.text = "\(distance ?? "")"
                         self.durationLabel.text = "\(duration ?? "")"
-
+                        
                         print("Mesafe : \(distance ?? "")")
                         print("Süre : \(duration ?? "")")
                         
@@ -238,7 +253,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             completion(String(format: "%.2f km", distanceInKilometers), "\(durationInMinutes) dakika", nil)
         }
     }
-   
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let mapView = mapView,
               let searchBarText = searchBar.text else {
@@ -271,53 +286,53 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
         
     }
-
-
     
-  /*  func checkForPermission(){
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.getNotificationSettings { settings in
-            switch settings.authorizationStatus {
-            case .authorized:
-                self.dispatchNotification()
-            case .denied:
-                return
-            case .notDetermined:
-                notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
-                    if didAllow {
-                        self.dispatchNotification()
-                    }
-                }
-            default:
-                return
-                
-                
-            }
-            
-        }
-    }
-    func dispatchNotification() {
-        let identifier = "my-morning-notificaiton"
-        let title = "Time to work out!"
-        let body = "Don't be a lazy little butt!"
-        let hour = 12
-        let minute = 43
-        let isDaily = true
-        
-        let notificationCenter = UNUserNotificationCenter.current()
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        let calendar = Calendar.current
-        var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
-        notificationCenter.add(request)
-    }*/
+    
+    
+    /*  func checkForPermission(){
+     let notificationCenter = UNUserNotificationCenter.current()
+     notificationCenter.getNotificationSettings { settings in
+     switch settings.authorizationStatus {
+     case .authorized:
+     self.dispatchNotification()
+     case .denied:
+     return
+     case .notDetermined:
+     notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
+     if didAllow {
+     self.dispatchNotification()
+     }
+     }
+     default:
+     return
+     
+     
+     }
+     
+     }
+     }
+     func dispatchNotification() {
+     let identifier = "my-morning-notificaiton"
+     let title = "Time to work out!"
+     let body = "Don't be a lazy little butt!"
+     let hour = 12
+     let minute = 43
+     let isDaily = true
+     
+     let notificationCenter = UNUserNotificationCenter.current()
+     let content = UNMutableNotificationContent()
+     content.title = title
+     content.body = body
+     content.sound = .default
+     let calendar = Calendar.current
+     var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
+     dateComponents.hour = hour
+     dateComponents.minute = minute
+     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
+     let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+     notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+     notificationCenter.add(request)
+     }*/
     
 }
 
