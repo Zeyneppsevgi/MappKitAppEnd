@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 
 class NotificationViewController: UIViewController, UNUserNotificationCenterDelegate {
+
     
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -17,6 +18,10 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         datePicker.timeZone = .current
         datePicker.datePickerMode = .time
         datePicker.tintColor = .systemOrange
+        datePicker.backgroundColor = .white
+        datePicker.layer.borderWidth = 1
+        datePicker.layer.cornerRadius = 8
+        
         return datePicker
     }()
     
@@ -31,6 +36,11 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         // Buton ekleyerek bildirim gönderme işlemi başlatılabilir
         let sendNotificationButton = UIButton(type: .system)
         sendNotificationButton.setTitle("Send Notification", for: .normal)
+        
+       sendNotificationButton.setTitleColor(.white, for: .normal)
+       
+        sendNotificationButton.backgroundColor = .systemBlue // Butonun arkaplan rengini belirle
+        sendNotificationButton.layer.cornerRadius = 10 // Butona köşe yuvarlaklığı ekle
         sendNotificationButton.addTarget(self, action: #selector(kontrolVeBildirimGonder), for: .touchUpInside)
         sendNotificationButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
         sendNotificationButton.center = CGPoint(x: view.center.x, y: view.center.y + 50)
@@ -38,10 +48,16 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         
         checkForPermission()
         UNUserNotificationCenter.current().delegate = self
+   
+       
+        
+       
+
+             
     }
+    
     func calculateEstimatedTime() -> Int {
-        // Burada, hedefe varış için tahmini süreyi hesaplayacak mantığı uygulayın.
-        // Örneğin, sabit bir değer döndüren basit bir örnek:
+        
         let estimatedTime = 1 // Örnek olarak 1 dakika
         return estimatedTime
     }
@@ -54,8 +70,7 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         
         // 2.adım tahmini kaç dakika hesaplanması
         // örnek : 1 dakika
-        let tahminiSure = self.estimatedTime // Bu kısmı gerçek tahmin fonksiyonunuzla değiştirin
-
+        let tahminiSure = self.estimatedTime
         // 3.adım yola cıkmak için gereken zamanı hesapla
         // Tahmini süreyi seçili saatten çıkartarak hedef saati hesapla
         let cikisZaman = selectedDate.addingTimeInterval(-Double(tahminiSure)*60)
