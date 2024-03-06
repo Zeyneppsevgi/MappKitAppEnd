@@ -100,7 +100,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
 
         // Pil tasarrufu için konum güncellemeyi durdur
         locationManager.stopUpdatingLocation()
-       // mapView.setUserTrackingMode(.follow, animated: true)
+      
 
     }
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -126,6 +126,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     @IBAction func onLocationButtonTapped() {
         updateLocationonMap(to: locationManager.location ?? CLLocation(), with: "Test Location")
+        if let userLocation = locationManager.location {
+               updateLocationonMap(to: userLocation, with: "My Location")
+               sourceLocation = MKMapItem(placemark: MKPlacemark(coordinate: userLocation.coordinate))
+               displayPathBetweenTwoPoints()
+           } else {
+               // Hata durumu, konum alınamadı
+               print("Konum bilgisi alınamıyor.")
+           }
+        getDirections()
         
     }
     
@@ -138,6 +147,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             mapView.removeAnnotation(annotation)
             // annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
             var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             geocoder.reverseGeocodeLocation(location) { [self] (placemarks, error) in
                 
@@ -218,6 +228,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
         return MKOverlayRenderer()
     }
+    func getDirections() {
+        if let currentLocation = locationManager.location, let destination = destinationLocation {
+            // Mevcut konumdan seçilen konuma yönlendirme almak için
+            sourceLocation = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation.coordinate))
+            displayPathBetweenTwoPoints()
+        } else {
+            // Kullanıcının bir yer seçmesini bekleyin veya bir mesaj gösterin
+            print("Lütfen bir yer seçin.")
+        }
+    }
+
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin"){
@@ -278,6 +299,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                 // self.destinationLocation = item
                 self.navigationController?.popViewController(animated: true)
                 self.displayPathBetweenTwoPoints()
+                self.getDirections()
                 
             }
             self.navigationController?.pushViewController(searchbarController, animated: true)

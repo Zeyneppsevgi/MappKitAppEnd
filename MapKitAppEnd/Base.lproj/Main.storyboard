@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P1W-bM-rlF">
-                                <rect key="frame" x="0.0" y="135" width="393" height="592"/>
+                                <rect key="frame" x="0.0" y="135" width="393" height="590"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgl-Zh-klx">
@@ -30,7 +30,7 @@
                                     <action selector="onLocationButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="Myw-bl-lkK"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiP-dU-Sw1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiP-dU-Sw1">
                                 <rect key="frame" x="113" y="766" width="63" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="jDi-YE-Jb8"/>
@@ -41,23 +41,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QxU-JA-AOs">
-                                <rect key="frame" x="81" y="740.33333333333337" width="33" height="17.666666666666629"/>
+                                <rect key="frame" x="81" y="738.33333333333337" width="33" height="17.666666666666629"/>
                                 <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="33" id="p00-7X-IQo"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5pB-tB-Uov">
-                                <rect key="frame" x="267" y="740" width="33" height="19"/>
+                                <rect key="frame" x="267" y="738" width="33" height="19"/>
                                 <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="33" id="Sn6-4G-SsS"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mesafe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zd-tA-y3G">
-                                <rect key="frame" x="48" y="767" width="77" height="32"/>
+                                <rect key="frame" x="48" y="765" width="77" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="Zis-Fu-Wf4"/>
                                     <constraint firstAttribute="width" constant="77" id="aPa-EG-hSZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -65,7 +64,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Süre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4u-HZ-pZO">
-                                <rect key="frame" x="227" y="767" width="39.666666666666686" height="32"/>
+                                <rect key="frame" x="227" y="765" width="39.666666666666686" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -81,7 +80,7 @@
                                 </connections>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTS-gi-4EZ">
-                                <rect key="frame" x="274" y="767" width="77" height="32"/>
+                                <rect key="frame" x="274" y="766" width="77" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -113,7 +112,6 @@
                             <constraint firstItem="R5K-YU-0yc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="f8z-in-DGK"/>
                             <constraint firstItem="P1W-bM-rlF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hgN-az-FQy"/>
                             <constraint firstItem="YiP-dU-Sw1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="113" id="iAJ-Cz-yEv"/>
-                            <constraint firstItem="YiP-dU-Sw1" firstAttribute="top" secondItem="4zd-tA-y3G" secondAttribute="top" id="j0I-Pr-D3S"/>
                             <constraint firstItem="QxU-JA-AOs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="81" id="kMr-fW-vwm"/>
                             <constraint firstItem="4zd-tA-y3G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="nMo-2i-PH6"/>
                             <constraint firstItem="P1W-bM-rlF" firstAttribute="top" secondItem="R5K-YU-0yc" secondAttribute="bottom" id="t0U-1T-SQb"/>
@@ -254,7 +252,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
