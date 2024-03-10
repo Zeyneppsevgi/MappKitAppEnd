@@ -3,7 +3,7 @@ import MapKit
 import CoreLocation
 import UserNotifications
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate{
+class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
     
     var matches : [MKMapItem] = []
@@ -80,18 +80,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
         // UIButton tıklandığında yapılacak işlemleri burada belirtin
-        let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
-        secondViewController.estimatedTime = self.estimatedTime
-        self.navigationController?.pushViewController(secondViewController, animated: true)
+      //  let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
+       // secondViewController.estimatedTime = self.estimatedTime
+       // self.navigationController?.pushViewController(secondViewController, animated: true)
+        
+        // bu şekilde
+        let sheetViewController = NotificationViewController()
+        sheetViewController.estimatedTime = self.estimatedTime
+        if let sheet = sheetViewController.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        present(sheetViewController, animated: true)
     }
-    
-    
-    /* func  locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-     if (status == .authorizedWhenInUse || status == .authorizedAlways)
-     {
-     locationManager.startUpdatingLocation()
-     }
-     }*/
+ 
+   
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
@@ -167,7 +169,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             displayPathBetweenTwoPoints()
         }
     }
-    
+
+
     
     func annotationToMapItem(annotation: MKAnnotation) -> MKMapItem {
         guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
@@ -308,10 +311,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
         
     }
-    
-    
-    
+   
     
 }
+extension ViewController: UISheetPresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        // Alt sayfa kapatıldığında yapılacak işlemler
+    }
+}
+
+
+
 
 

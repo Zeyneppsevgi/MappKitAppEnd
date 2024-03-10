@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import UserNotifications
 
-class NotificationViewController: UIViewController, UNUserNotificationCenterDelegate {
+class NotificationViewController: UIViewController, UNUserNotificationCenterDelegate, UIAdaptivePresentationControllerDelegate {
 
     
     private let datePicker: UIDatePicker = {
@@ -31,7 +31,9 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         super.viewDidLoad()
         
         view.addSubview(datePicker)
-        datePicker.center = view.center
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         // Buton ekleyerek bildirim gönderme işlemi başlatılabilir
         let sendNotificationButton = UIButton(type: .system)
@@ -42,19 +44,29 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         sendNotificationButton.backgroundColor = .systemBlue // Butonun arkaplan rengini belirle
         sendNotificationButton.layer.cornerRadius = 10 // Butona köşe yuvarlaklığı ekle
         sendNotificationButton.addTarget(self, action: #selector(kontrolVeBildirimGonder), for: .touchUpInside)
-        sendNotificationButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+        
         sendNotificationButton.center = CGPoint(x: view.center.x, y: view.center.y + 50)
         view.addSubview(sendNotificationButton)
+        
+        sendNotificationButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+        sendNotificationButton.translatesAutoresizingMaskIntoConstraints = false
+        sendNotificationButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
+        sendNotificationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         checkForPermission()
         UNUserNotificationCenter.current().delegate = self
    
        
+        // Alt sayfa modelinin içeriğini oluşturun
+            let contentView = UIView()
+            contentView.backgroundColor = .white
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(contentView)
+    
+        self.view.backgroundColor = UIColor.white
         
-       
-
-             
     }
+    
     
     func calculateEstimatedTime() -> Int {
         
@@ -137,3 +149,4 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         completionHandler()
     }
 }
+
