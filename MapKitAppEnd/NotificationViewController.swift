@@ -29,44 +29,39 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // DatePicker eklendi
         view.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        // Buton ekleyerek bildirim gönderme işlemi başlatılabilir
+        NSLayoutConstraint.activate([
+            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
+        // "Send Notification" butonu eklendi
         let sendNotificationButton = UIButton(type: .system)
-        sendNotificationButton.setTitle("Send Notification", for: .normal)
-        
-       sendNotificationButton.setTitleColor(.white, for: .normal)
-       
-        sendNotificationButton.backgroundColor = .systemBlue // Butonun arkaplan rengini belirle
-        sendNotificationButton.layer.cornerRadius = 10 // Butona köşe yuvarlaklığı ekle
+        sendNotificationButton.setTitle("Hatırlatıcı", for: .normal)
+        sendNotificationButton.setTitleColor(.white, for: .normal)
+        sendNotificationButton.backgroundColor = .systemBlue
+        sendNotificationButton.layer.cornerRadius = 10
         sendNotificationButton.addTarget(self, action: #selector(kontrolVeBildirimGonder), for: .touchUpInside)
-        
-        sendNotificationButton.center = CGPoint(x: view.center.x, y: view.center.y + 50)
         view.addSubview(sendNotificationButton)
-        
-        sendNotificationButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+
+        // Butonun konumu için constraint'ler eklendi
         sendNotificationButton.translatesAutoresizingMaskIntoConstraints = false
-        sendNotificationButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
-        sendNotificationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
+        NSLayoutConstraint.activate([
+            sendNotificationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sendNotificationButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20)
+        ])
+
+        // Arka plan rengi ve diğer ayarlar yapıldı
+        self.view.backgroundColor = UIColor.white
+
+        // İzin kontrolü ve bildirim merkezi delegesi ayarlandı
         checkForPermission()
         UNUserNotificationCenter.current().delegate = self
-   
-       
-        // Alt sayfa modelinin içeriğini oluşturun
-            let contentView = UIView()
-            contentView.backgroundColor = .white
-            contentView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(contentView)
-    
-        self.view.backgroundColor = UIColor.white
-        
     }
-    
+
     
     func calculateEstimatedTime() -> Int {
         
