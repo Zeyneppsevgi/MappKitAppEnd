@@ -30,8 +30,8 @@
                                     <action selector="onLocationButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="Myw-bl-lkK"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiP-dU-Sw1">
-                                <rect key="frame" x="113" y="766" width="63" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiP-dU-Sw1">
+                                <rect key="frame" x="113" y="766" width="73" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="jDi-YE-Jb8"/>
                                     <constraint firstAttribute="height" constant="32" id="p0l-f0-fMe"/>
