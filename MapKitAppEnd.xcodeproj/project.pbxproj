@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702018602BE2616700FBE96D /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020185F2BE2616600FBE96D /* SwiftUIView.swift */; };
+		702018622BE27A0C00FBE96D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702018612BE27A0C00FBE96D /* Constants.swift */; };
+		702018642BE27A5A00FBE96D /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702018632BE27A5A00FBE96D /* OpenAIService.swift */; };
+		702018672BE27B4D00FBE96D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 702018662BE27B4D00FBE96D /* Alamofire */; };
+		702018692BE27B4D00FBE96D /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 702018682BE27B4D00FBE96D /* AlamofireDynamic */; };
 		7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7053C37B2BE221F900F3F7DF /* OpenAISwift */; };
-		7053C37E2BE222C600F3F7DF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7053C37D2BE222C600F3F7DF /* APICaller.swift */; };
-		7053C3802BE2268500F3F7DF /* ChatBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */; };
 		705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429132B20F0170014A5F9 /* AppDelegate.swift */; };
 		705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429152B20F0170014A5F9 /* SceneDelegate.swift */; };
 		705429182B20F0170014A5F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429172B20F0170014A5F9 /* ViewController.swift */; };
@@ -23,8 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7053C37D2BE222C600F3F7DF /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
-		7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBotViewController.swift; sourceTree = "<group>"; };
+		7020185F2BE2616600FBE96D /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		702018612BE27A0C00FBE96D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		702018632BE27A5A00FBE96D /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		705429102B20F0170014A5F9 /* MapKitAppEnd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAppEnd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		705429132B20F0170014A5F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		705429152B20F0170014A5F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */,
+				702018692BE27B4D00FBE96D /* AlamofireDynamic in Frameworks */,
+				702018672BE27B4D00FBE96D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +60,9 @@
 		7053C3792BE221BE00F3F7DF /* ChatAl */ = {
 			isa = PBXGroup;
 			children = (
-				7053C37D2BE222C600F3F7DF /* APICaller.swift */,
-				7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */,
+				7020185F2BE2616600FBE96D /* SwiftUIView.swift */,
+				702018612BE27A0C00FBE96D /* Constants.swift */,
+				702018632BE27A5A00FBE96D /* OpenAIService.swift */,
 			);
 			path = ChatAl;
 			sourceTree = "<group>";
@@ -121,6 +128,8 @@
 			name = MapKitAppEnd;
 			packageProductDependencies = (
 				7053C37B2BE221F900F3F7DF /* OpenAISwift */,
+				702018662BE27B4D00FBE96D /* Alamofire */,
+				702018682BE27B4D00FBE96D /* AlamofireDynamic */,
 			);
 			productName = MapKitAppEnd;
 			productReference = 705429102B20F0170014A5F9 /* MapKitAppEnd.app */;
@@ -152,6 +161,7 @@
 			mainGroup = 705429072B20F0170014A5F9;
 			packageReferences = (
 				7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+				702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 705429112B20F0170014A5F9 /* Products */;
 			projectDirPath = "";
@@ -182,13 +192,14 @@
 			files = (
 				70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */,
 				70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */,
+				702018602BE2616700FBE96D /* SwiftUIView.swift in Sources */,
 				70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */,
 				7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */,
 				705429182B20F0170014A5F9 /* ViewController.swift in Sources */,
 				705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */,
-				7053C3802BE2268500F3F7DF /* ChatBotViewController.swift in Sources */,
+				702018642BE27A5A00FBE96D /* OpenAIService.swift in Sources */,
 				705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */,
-				7053C37E2BE222C600F3F7DF /* APICaller.swift in Sources */,
+				702018622BE27A0C00FBE96D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +419,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamrushy/OpenAISwift";
@@ -419,6 +438,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		702018662BE27B4D00FBE96D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		702018682BE27B4D00FBE96D /* AlamofireDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = AlamofireDynamic;
+		};
 		7053C37B2BE221F900F3F7DF /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */;

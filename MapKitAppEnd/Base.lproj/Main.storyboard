@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dI4-pD-G3H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dI4-pD-G3H">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -118,11 +118,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rZ8-IE-7Pl">
-                        <barButtonItem key="leftBarButtonItem" image="circle.hexagonpath" catalog="system" id="dqI-QD-ltz">
-                            <connections>
-                                <segue destination="Ijq-KV-NYO" kind="show" id="Psv-MW-hf7"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="circle.hexagonpath" catalog="system" id="dqI-QD-ltz"/>
                         <barButtonItem key="rightBarButtonItem" title="Calendar" image="calendar" catalog="system" id="ibO-AV-Ea8">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
@@ -229,22 +225,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mr-mg-43v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3281.679389312977" y="17.605633802816904"/>
-        </scene>
-        <!--Chat Bot View Controller-->
-        <scene sceneID="sqO-Tv-qCS">
-            <objects>
-                <viewController id="Ijq-KV-NYO" customClass="ChatBotViewController" customModule="MapKitAppEnd" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eZJ-cv-27z">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="2G3-Al-RfO"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="65O-aw-s6Q"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yi8-J0-hC1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1763" y="-718"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dAt-uv-biH">
