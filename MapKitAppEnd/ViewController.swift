@@ -10,6 +10,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBarDestination : UISearchBar!
     
+    @IBOutlet weak var OpenAlButton: UIBarButtonItem!
     @IBOutlet weak var calendarButton: UIBarButtonItem!
     
     @IBOutlet weak var durationLabel: UILabel!

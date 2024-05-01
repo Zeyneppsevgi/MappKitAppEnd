@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7053C37B2BE221F900F3F7DF /* OpenAISwift */; };
+		7053C37E2BE222C600F3F7DF /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7053C37D2BE222C600F3F7DF /* APICaller.swift */; };
+		7053C3802BE2268500F3F7DF /* ChatBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */; };
 		705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429132B20F0170014A5F9 /* AppDelegate.swift */; };
 		705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429152B20F0170014A5F9 /* SceneDelegate.swift */; };
 		705429182B20F0170014A5F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429172B20F0170014A5F9 /* ViewController.swift */; };
@@ -20,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7053C37D2BE222C600F3F7DF /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBotViewController.swift; sourceTree = "<group>"; };
 		705429102B20F0170014A5F9 /* MapKitAppEnd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAppEnd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		705429132B20F0170014A5F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		705429152B20F0170014A5F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,12 +44,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7053C3792BE221BE00F3F7DF /* ChatAl */ = {
+			isa = PBXGroup;
+			children = (
+				7053C37D2BE222C600F3F7DF /* APICaller.swift */,
+				7053C37F2BE2268500F3F7DF /* ChatBotViewController.swift */,
+			);
+			path = ChatAl;
+			sourceTree = "<group>";
+		};
 		705429072B20F0170014A5F9 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +79,7 @@
 		705429122B20F0170014A5F9 /* MapKitAppEnd */ = {
 			isa = PBXGroup;
 			children = (
+				7053C3792BE221BE00F3F7DF /* ChatAl */,
 				70B5F0D62B21045D0020CEF0 /* Model */,
 				705429132B20F0170014A5F9 /* AppDelegate.swift */,
 				705429152B20F0170014A5F9 /* SceneDelegate.swift */,
@@ -103,6 +119,9 @@
 			dependencies = (
 			);
 			name = MapKitAppEnd;
+			packageProductDependencies = (
+				7053C37B2BE221F900F3F7DF /* OpenAISwift */,
+			);
 			productName = MapKitAppEnd;
 			productReference = 705429102B20F0170014A5F9 /* MapKitAppEnd.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +150,9 @@
 				Base,
 			);
 			mainGroup = 705429072B20F0170014A5F9;
+			packageReferences = (
+				7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+			);
 			productRefGroup = 705429112B20F0170014A5F9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -164,7 +186,9 @@
 				7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */,
 				705429182B20F0170014A5F9 /* ViewController.swift in Sources */,
 				705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */,
+				7053C3802BE2268500F3F7DF /* ChatBotViewController.swift in Sources */,
 				705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */,
+				7053C37E2BE222C600F3F7DF /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +406,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7053C37B2BE221F900F3F7DF /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 705429082B20F0170014A5F9 /* Project object */;
 }

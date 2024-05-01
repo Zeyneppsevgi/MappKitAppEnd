@@ -118,6 +118,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rZ8-IE-7Pl">
+                        <barButtonItem key="leftBarButtonItem" image="circle.hexagonpath" catalog="system" id="dqI-QD-ltz">
+                            <connections>
+                                <segue destination="Ijq-KV-NYO" kind="show" id="Psv-MW-hf7"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Calendar" image="calendar" catalog="system" id="ibO-AV-Ea8">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
@@ -126,6 +131,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="OpenAlButton" destination="dqI-QD-ltz" id="sM3-8D-Bs5"/>
                         <outlet property="calendarButton" destination="ibO-AV-Ea8" id="7jH-Va-zX4"/>
                         <outlet property="distanceLabel" destination="YiP-dU-Sw1" id="gSr-4Q-gW2"/>
                         <outlet property="durationLabel" destination="HTS-gi-4EZ" id="eC6-Tl-IRl"/>
@@ -224,6 +230,22 @@
             </objects>
             <point key="canvasLocation" x="3281.679389312977" y="17.605633802816904"/>
         </scene>
+        <!--Chat Bot View Controller-->
+        <scene sceneID="sqO-Tv-qCS">
+            <objects>
+                <viewController id="Ijq-KV-NYO" customClass="ChatBotViewController" customModule="MapKitAppEnd" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eZJ-cv-27z">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2G3-Al-RfO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="65O-aw-s6Q"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yi8-J0-hC1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1763" y="-718"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="dAt-uv-biH">
             <objects>
@@ -246,6 +268,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="car.fill" catalog="system" width="128" height="95"/>
+        <image name="circle.hexagonpath" catalog="system" width="128" height="115"/>
         <image name="clock.fill" catalog="system" width="128" height="123"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
