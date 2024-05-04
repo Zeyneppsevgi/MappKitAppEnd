@@ -14,7 +14,7 @@ class ChatAlBotViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
     }
     
     @IBAction func GonderButton(_ sender: Any) {
