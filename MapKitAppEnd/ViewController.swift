@@ -36,6 +36,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     var resultSearchController : UISearchController? = nil
     
+  
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

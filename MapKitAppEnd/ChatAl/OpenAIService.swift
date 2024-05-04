@@ -5,7 +5,7 @@
 //  Created by Zeynep Sevgi on 1.05.2024.
 //
 
-import Foundation
+/*import Foundation
 import Alamofire
 import Combine
 
@@ -47,3 +47,5 @@ struct OpenAICompletionsResponse: Decodable {
 struct OpenAICompetionsChoice: Decodable{
     let text: String
 }
+
+*/
