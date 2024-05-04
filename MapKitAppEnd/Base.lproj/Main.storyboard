@@ -118,7 +118,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rZ8-IE-7Pl">
-                        <barButtonItem key="leftBarButtonItem" image="circle.hexagonpath" catalog="system" id="dqI-QD-ltz"/>
+                        <barButtonItem key="leftBarButtonItem" image="circle.hexagonpath" catalog="system" id="dqI-QD-ltz">
+                            <connections>
+                                <segue destination="Vbw-fa-GRC" kind="show" id="GY8-Qw-Fnx"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Calendar" image="calendar" catalog="system" id="ibO-AV-Ea8">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
@@ -138,6 +142,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1028.2442748091603" y="3.5211267605633805"/>
+        </scene>
+        <!--Chat Al Bot View Controller-->
+        <scene sceneID="IeP-iG-w4J">
+            <objects>
+                <viewController id="Vbw-fa-GRC" customClass="ChatAlBotViewController" customModule="MapKitAppEnd" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K8q-Mj-W4o">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KiE-fJ-L0v">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="718"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="718" id="Tot-pj-TG6"/>
+                                </constraints>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="buraya yaz" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g9n-qE-H3t">
+                                <rect key="frame" x="16" y="727" width="302" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCe-zt-yHH">
+                                <rect key="frame" x="332" y="726" width="49" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrowshape.up.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="GonderButton:" destination="Vbw-fa-GRC" eventType="touchUpInside" id="RKz-Fl-Ga1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="udt-Jz-qfY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="udt-Jz-qfY" firstAttribute="bottom" secondItem="g9n-qE-H3t" secondAttribute="bottom" constant="57" id="0tP-2h-aRQ"/>
+                            <constraint firstItem="KiE-fJ-L0v" firstAttribute="leading" secondItem="udt-Jz-qfY" secondAttribute="leading" id="2h5-vX-0eL"/>
+                            <constraint firstItem="g9n-qE-H3t" firstAttribute="leading" secondItem="K8q-Mj-W4o" secondAttribute="leadingMargin" id="G9j-cF-YSw"/>
+                            <constraint firstItem="sCe-zt-yHH" firstAttribute="top" secondItem="KiE-fJ-L0v" secondAttribute="bottom" constant="8" id="M94-wb-LDh"/>
+                            <constraint firstItem="KiE-fJ-L0v" firstAttribute="centerX" secondItem="K8q-Mj-W4o" secondAttribute="centerX" id="Mvq-Bd-qtk"/>
+                            <constraint firstItem="g9n-qE-H3t" firstAttribute="bottom" secondItem="sCe-zt-yHH" secondAttribute="bottom" id="NhE-Qr-8cR"/>
+                            <constraint firstItem="udt-Jz-qfY" firstAttribute="trailing" secondItem="sCe-zt-yHH" secondAttribute="trailing" constant="12" id="OBC-6n-NSW"/>
+                            <constraint firstItem="sCe-zt-yHH" firstAttribute="leading" secondItem="g9n-qE-H3t" secondAttribute="trailing" constant="14" id="Y2i-Jy-Gx0"/>
+                            <constraint firstItem="g9n-qE-H3t" firstAttribute="centerY" secondItem="sCe-zt-yHH" secondAttribute="centerY" id="jZW-9o-W9i"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="sEX-I4-qTu"/>
+                    <connections>
+                        <outlet property="MessageTableView" destination="KiE-fJ-L0v" id="0l2-QR-Q0b"/>
+                        <outlet property="TextField" destination="g9n-qE-H3t" id="B1z-eN-OlI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rF8-7u-EAK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1762.5954198473282" y="-677.46478873239437"/>
         </scene>
         <!--Location Search Controller-->
         <scene sceneID="JKc-px-olp">
@@ -246,6 +303,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowshape.up.fill" catalog="system" width="123" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="car.fill" catalog="system" width="128" height="95"/>
         <image name="circle.hexagonpath" catalog="system" width="128" height="115"/>
