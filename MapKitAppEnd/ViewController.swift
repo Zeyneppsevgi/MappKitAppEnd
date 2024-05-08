@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import MapKit
 import CoreLocation
 import UserNotifications
@@ -10,7 +11,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBarDestination : UISearchBar!
     
-    @IBOutlet weak var OpenAlButton: UIBarButtonItem!
+    @IBOutlet weak var geminiButton: UIBarButtonItem!
     @IBOutlet weak var calendarButton: UIBarButtonItem!
     
     @IBOutlet weak var durationLabel: UILabel!
@@ -35,8 +36,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }()
     
     var resultSearchController : UISearchController? = nil
-    
-  
     
     
     override func viewDidLoad() {
@@ -75,7 +74,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(_:)))
         mapView.addGestureRecognizer(longPressRecognizer)
         
-        
+        geminiButton.target = self
+        geminiButton.action = #selector(geminiButtonTapped)
         
         
         // checkForPermission()
@@ -95,7 +95,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         }
         present(sheetViewController, animated: true)
     }
- 
+    @IBAction func geminiButtonTapped(_ sender: Any) {
+            // ContentView'ı UIHostingController içine yerleştir
+            let contentView = ContentView()
+            let hostedController = UIHostingController(rootView: contentView)
+            
+            // ContentView'a geçiş yap
+            navigationController?.pushViewController(hostedController, animated: true)
+        }
    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }

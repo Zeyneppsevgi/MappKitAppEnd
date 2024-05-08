@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		702018672BE27B4D00FBE96D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 702018662BE27B4D00FBE96D /* Alamofire */; };
-		702018692BE27B4D00FBE96D /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 702018682BE27B4D00FBE96D /* AlamofireDynamic */; };
-		7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7053C37B2BE221F900F3F7DF /* OpenAISwift */; };
+		7007501B2BEB88AD004B345F /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 7007501A2BEB88AD004B345F /* GoogleGenerativeAI */; };
+		70295D892BEB8DCC00D70E23 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70295D882BEB8DCB00D70E23 /* ContentView.swift */; };
+		70295D8B2BEB8E4000D70E23 /* GeminiChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */; };
+		70295D8D2BEB8E5C00D70E23 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70295D8C2BEB8E5C00D70E23 /* APIKey.swift */; };
+		70295D8F2BEB8E9800D70E23 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */; };
 		705429142B20F0170014A5F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429132B20F0170014A5F9 /* AppDelegate.swift */; };
 		705429162B20F0170014A5F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429152B20F0170014A5F9 /* SceneDelegate.swift */; };
 		705429182B20F0170014A5F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705429172B20F0170014A5F9 /* ViewController.swift */; };
 		7054291B2B20F0170014A5F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 705429192B20F0170014A5F9 /* Main.storyboard */; };
 		7054291D2B20F0180014A5F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7054291C2B20F0180014A5F9 /* Assets.xcassets */; };
 		705429202B20F0180014A5F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7054291E2B20F0180014A5F9 /* LaunchScreen.storyboard */; };
-		7080C8922BE63F5900D88735 /* ChatAlBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7080C8912BE63F5900D88735 /* ChatAlBotViewController.swift */; };
 		7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */; };
 		70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */; };
 		70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D72B2104770020CEF0 /* LocationCell.swift */; };
@@ -24,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		70295D882BEB8DCB00D70E23 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiChatApp.swift; sourceTree = "<group>"; };
+		70295D8C2BEB8E5C00D70E23 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GenerativeAI-Info.plist"; path = "../../GeminiChat/GeminiChat/GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		705429102B20F0170014A5F9 /* MapKitAppEnd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAppEnd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		705429132B20F0170014A5F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		705429152B20F0170014A5F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +37,6 @@
 		7054291C2B20F0180014A5F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7054291F2B20F0180014A5F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		705429212B20F0180014A5F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7080C8912BE63F5900D88735 /* ChatAlBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAlBotViewController.swift; sourceTree = "<group>"; };
 		7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		70B5F0D72B2104770020CEF0 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
@@ -44,9 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7053C37C2BE221F900F3F7DF /* OpenAISwift in Frameworks */,
-				702018692BE27B4D00FBE96D /* AlamofireDynamic in Frameworks */,
-				702018672BE27B4D00FBE96D /* Alamofire in Frameworks */,
+				7007501B2BEB88AD004B345F /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +85,10 @@
 				70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */,
 				70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */,
 				7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */,
-				7080C8912BE63F5900D88735 /* ChatAlBotViewController.swift */,
+				70295D882BEB8DCB00D70E23 /* ContentView.swift */,
+				70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */,
+				70295D8C2BEB8E5C00D70E23 /* APIKey.swift */,
+				70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */,
 			);
 			path = MapKitAppEnd;
 			sourceTree = "<group>";
@@ -113,9 +118,7 @@
 			);
 			name = MapKitAppEnd;
 			packageProductDependencies = (
-				7053C37B2BE221F900F3F7DF /* OpenAISwift */,
-				702018662BE27B4D00FBE96D /* Alamofire */,
-				702018682BE27B4D00FBE96D /* AlamofireDynamic */,
+				7007501A2BEB88AD004B345F /* GoogleGenerativeAI */,
 			);
 			productName = MapKitAppEnd;
 			productReference = 705429102B20F0170014A5F9 /* MapKitAppEnd.app */;
@@ -146,8 +149,7 @@
 			);
 			mainGroup = 705429072B20F0170014A5F9;
 			packageReferences = (
-				7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */,
-				702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				700750192BEB88AD004B345F /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 			);
 			productRefGroup = 705429112B20F0170014A5F9 /* Products */;
 			projectDirPath = "";
@@ -165,6 +167,7 @@
 			files = (
 				705429202B20F0180014A5F9 /* LaunchScreen.storyboard in Resources */,
 				7054291D2B20F0180014A5F9 /* Assets.xcassets in Resources */,
+				70295D8F2BEB8E9800D70E23 /* GenerativeAI-Info.plist in Resources */,
 				7054291B2B20F0170014A5F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,8 +180,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */,
-				7080C8922BE63F5900D88735 /* ChatAlBotViewController.swift in Sources */,
 				70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */,
+				70295D8B2BEB8E4000D70E23 /* GeminiChatApp.swift in Sources */,
+				70295D892BEB8DCC00D70E23 /* ContentView.swift in Sources */,
+				70295D8D2BEB8E5C00D70E23 /* APIKey.swift in Sources */,
 				70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */,
 				7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */,
 				705429182B20F0170014A5F9 /* ViewController.swift in Sources */,
@@ -403,39 +408,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		700750192BEB88AD004B345F /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			repositoryURL = "https://github.com/google-gemini/generative-ai-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
-		7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/adamrushy/OpenAISwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.1;
+				minimumVersion = 0.5.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		702018662BE27B4D00FBE96D /* Alamofire */ = {
+		7007501A2BEB88AD004B345F /* GoogleGenerativeAI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		702018682BE27B4D00FBE96D /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 702018652BE27B4D00FBE96D /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
-		7053C37B2BE221F900F3F7DF /* OpenAISwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7053C37A2BE221F900F3F7DF /* XCRemoteSwiftPackageReference "OpenAISwift" */;
-			productName = OpenAISwift;
+			package = 700750192BEB88AD004B345F /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
