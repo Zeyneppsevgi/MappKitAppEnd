@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -118,7 +119,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rZ8-IE-7Pl">
-                        <barButtonItem key="leftBarButtonItem" image="circle.hexagongrid.fill" catalog="system" id="a9q-gS-ulD"/>
+                        <barButtonItem key="leftBarButtonItem" id="a9q-gS-ulD">
+                            <imageReference key="image" image="sparkles" catalog="system" symbolScale="large" variableValue="1"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Calendar" image="calendar" catalog="system" id="ibO-AV-Ea8">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
@@ -248,9 +251,9 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="car.fill" catalog="system" width="128" height="95"/>
-        <image name="circle.hexagongrid.fill" catalog="system" width="128" height="115"/>
         <image name="clock.fill" catalog="system" width="128" height="123"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
+        <image name="sparkles" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
