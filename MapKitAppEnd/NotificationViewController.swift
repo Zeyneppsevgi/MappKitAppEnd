@@ -42,9 +42,10 @@ class NotificationViewController: UIViewController, UNUserNotificationCenterDele
         let sendNotificationButton = UIButton(type: .system)
         sendNotificationButton.setTitle("Hatırlatıcı", for: .normal)
         sendNotificationButton.setTitleColor(.white, for: .normal)
+        sendNotificationButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         sendNotificationButton.backgroundColor = .systemBlue
         sendNotificationButton.layer.cornerRadius = 5
-        sendNotificationButton.frame = CGRect(x: 50, y: 50, width: 300, height: 300)
+        sendNotificationButton.frame = CGRect(x: 70, y: 70, width: 600, height: 400)
         sendNotificationButton.addTarget(self, action: #selector(kontrolVeBildirimGonder), for: .touchUpInside)
         view.addSubview(sendNotificationButton)
 
