@@ -24,7 +24,7 @@
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgl-Zh-klx">
-                                <rect key="frame" x="315" y="235" width="50" height="35"/>
+                                <rect key="frame" x="315" y="235" width="50" height="34"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="location.fill" catalog="system"/>
                                 <connections>
@@ -65,7 +65,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Süre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4u-HZ-pZO">
-                                <rect key="frame" x="227" y="765" width="39.666666666666686" height="34"/>
+                                <rect key="frame" x="226.66666666666666" y="765" width="39.999999999999972" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

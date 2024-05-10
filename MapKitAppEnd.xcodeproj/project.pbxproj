@@ -28,7 +28,7 @@
 		70295D882BEB8DCB00D70E23 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiChatApp.swift; sourceTree = "<group>"; };
 		70295D8C2BEB8E5C00D70E23 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
-		70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GenerativeAI-Info.plist"; path = "../../GeminiChat/GeminiChat/GenerativeAI-Info.plist"; sourceTree = "<group>"; };
+		70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		705429102B20F0170014A5F9 /* MapKitAppEnd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAppEnd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		705429132B20F0170014A5F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		705429152B20F0170014A5F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +55,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70295D902BEE3CE000D70E23 /* GeminiModel */ = {
+			isa = PBXGroup;
+			children = (
+				70295D8C2BEB8E5C00D70E23 /* APIKey.swift */,
+				70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */,
+				70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */,
+				70295D882BEB8DCB00D70E23 /* ContentView.swift */,
+			);
+			path = GeminiModel;
+			sourceTree = "<group>";
+		};
 		705429072B20F0170014A5F9 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +85,7 @@
 		705429122B20F0170014A5F9 /* MapKitAppEnd */ = {
 			isa = PBXGroup;
 			children = (
+				70295D902BEE3CE000D70E23 /* GeminiModel */,
 				70B5F0D62B21045D0020CEF0 /* Model */,
 				705429132B20F0170014A5F9 /* AppDelegate.swift */,
 				705429152B20F0170014A5F9 /* SceneDelegate.swift */,
@@ -85,10 +97,6 @@
 				70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */,
 				70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */,
 				7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */,
-				70295D882BEB8DCB00D70E23 /* ContentView.swift */,
-				70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */,
-				70295D8C2BEB8E5C00D70E23 /* APIKey.swift */,
-				70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */,
 			);
 			path = MapKitAppEnd;
 			sourceTree = "<group>";

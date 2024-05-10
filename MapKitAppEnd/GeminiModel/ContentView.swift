@@ -21,7 +21,7 @@ struct ContentView: View {
     let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
     
     @State var textInput = ""
-    @State var aiResponse = "Hello! how can ı help you today?"
+    @State var aiResponse = "Hello! How Can I Help You Today?"
     @State var logoAnimating = false
     @State var timer: Timer?
     
@@ -41,7 +41,7 @@ struct ContentView: View {
             }
             
             HStack {
-                TextField("enter a message", text: $textInput)
+                TextField("Enter a message...", text: $textInput)
                     .textFieldStyle(.roundedBorder)
                     .foregroundStyle(.black)
                 Button (action: sendMessage, label: {

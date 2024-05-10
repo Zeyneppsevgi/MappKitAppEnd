@@ -218,8 +218,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                             print("Mesafe ve süre hesaplanamıyor: \(error.localizedDescription)")
                             return
                         }
+                        
                         self.distanceLabel.text = "\(distance ?? "")"
                         self.durationLabel.text = "\(duration ?? "")"
+                    
                         
                         print("Mesafe : \(distance ?? "")")
                         print("Süre : \(duration ?? "")")
