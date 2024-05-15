@@ -60,7 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         
         let searchBar =  resultSearchController!.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Enter a place for search"
+        searchBar.placeholder = "Enter A Place For Search"
         navigationItem.searchController = resultSearchController
         searchBarDestination.delegate = self
         
@@ -83,9 +83,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
         // UIButton tıklandığında yapılacak işlemleri burada belirtin
-      //  let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
-       // secondViewController.estimatedTime = self.estimatedTime
-       // self.navigationController?.pushViewController(secondViewController, animated: true)
+        //  let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
+        // secondViewController.estimatedTime = self.estimatedTime
+        // self.navigationController?.pushViewController(secondViewController, animated: true)
         
         // bu şekilde
         let sheetViewController = NotificationViewController()
@@ -96,24 +96,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         present(sheetViewController, animated: true)
     }
     @IBAction func geminiButtonTapped(_ sender: Any) {
-            // ContentView'ı UIHostingController içine yerleştir
-            let contentView = ContentView()
-            let hostedController = UIHostingController(rootView: contentView)
-            
-            // ContentView'a geçiş yap
-            navigationController?.pushViewController(hostedController, animated: true)
-        }
-   
+        // ContentView'ı UIHostingController içine yerleştir
+        let contentView = ContentView()
+        let hostedController = UIHostingController(rootView: contentView)
+        
+        // ContentView'a geçiş yap
+        navigationController?.pushViewController(hostedController, animated: true)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
         mapView.setRegion(region, animated: true)
         
-
+        
         // Pil tasarrufu için konum güncellemeyi durdur
         locationManager.stopUpdatingLocation()
-      
-
+        
+        
     }
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
@@ -126,6 +126,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         let point = MKPointAnnotation()
         point.title = title
         point.coordinate = location.coordinate
+        //eklendi
+      //  mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
         for a in self.mapView.annotations {
             self.mapView.removeAnnotation(a)
         }
@@ -139,13 +141,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBAction func onLocationButtonTapped() {
         updateLocationonMap(to: locationManager.location ?? CLLocation(), with: "Test Location")
         if let userLocation = locationManager.location {
-               updateLocationonMap(to: userLocation, with: "My Location")
-               sourceLocation = MKMapItem(placemark: MKPlacemark(coordinate: userLocation.coordinate))
-               displayPathBetweenTwoPoints()
-           } else {
-               // Hata durumu, konum alınamadı
-               print("Konum bilgisi alınamıyor.")
-           }
+            updateLocationonMap(to: userLocation, with: "My Location")
+            sourceLocation = MKMapItem(placemark: MKPlacemark(coordinate: userLocation.coordinate))
+            displayPathBetweenTwoPoints()
+        } else {
+            // Hata durumu, konum alınamadı
+            print("Konum bilgisi alınamıyor.")
+        }
         getDirections()
         
     }
@@ -157,10 +159,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             let point = recognizer.location(in: mapView)
             let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
             mapView.removeAnnotation(annotation)
-            // annotation = MKPointAnnotation()
+            mapView.removeOverlays(mapView.overlays)
+            //annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
-            var location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             geocoder.reverseGeocodeLocation(location) { [self] (placemarks, error) in
                 
                 if let error = error {
@@ -174,13 +177,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                 }
                 
             }
-            mapView.addAnnotation(annotation)
+            // mapView.addAnnotation(annotation)
             destinationLocation = annotationToMapItem(annotation: annotation)
             displayPathBetweenTwoPoints()
         }
     }
-
-
+    
+    
     
     func annotationToMapItem(annotation: MKAnnotation) -> MKMapItem {
         guard let coordinate = (annotation as? MKPointAnnotation)?.coordinate else {
@@ -221,7 +224,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
                         
                         self.distanceLabel.text = "\(distance ?? "")"
                         self.durationLabel.text = "\(duration ?? "")"
-                    
+                        
                         
                         print("Mesafe : \(distance ?? "")")
                         print("Süre : \(duration ?? "")")
@@ -253,7 +256,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             print("Lütfen bir yer seçin.")
         }
     }
-
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin"){
@@ -291,8 +294,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let mapView = mapView,
-              let searchBarText = searchBar.text else {
+        // guard let mapView = mapView,
+        //    let searchBarText = searchBar.text else {
+        //   return
+        //  }
+        guard let searchBarText = searchBar.text else {
             return
         }
         let request = MKLocalSearch.Request()
@@ -301,29 +307,40 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         let search = MKLocalSearch(request: request)
         search.start { response, _ in
             guard let response = response else {
-                return 
+                return
             }
-            self.matches = response.mapItems
-            // self.tableView.reloadData()
-            let searchbarController = self.storyboard!.instantiateViewController(withIdentifier: "SearchBarController") as! SearchBarController
-            searchbarController.mapView = self.mapView
-            searchbarController.matches = self.matches
-            
-            searchbarController.callback =  {(location, name, item) in
-                self.updateLocationonMap(to: location, with: name)
-                // self.destinationLocation = item
-                self.navigationController?.popViewController(animated: true)
+            // self.matches = response.mapItems
+            if let firstMapItem = response.mapItems.first {
+                let location = firstMapItem.placemark.coordinate
+           //     self.mapView.removeAnnotation(self.mapView.annotations as! MKAnnotation)
+                self.mapView.removeOverlays(self.mapView.overlays)
+                self.updateLocationonMap(to: CLLocation(latitude: location.latitude, longitude: location.longitude), with: searchBarText)
+                self.destinationLocation = firstMapItem
                 self.displayPathBetweenTwoPoints()
-                self.getDirections()
-                
+                // İlk dönüş olarak gelen yerin koordinatlarını alıp haritada pinle
+                // let location = firstMapItem.placemark.coordinate
+                //self.updateLocationonMap(to: CLLocation(latitude: location.latitude, longitude: location.longitude), with: searchBarText)
             }
-            self.navigationController?.pushViewController(searchbarController, animated: true)
+            //haritada dokunarak pinleme
+            // let searchbarController = self.storyboard!.instantiateViewController(withIdentifier: "SearchBarController") as! SearchBarController
+            // searchbarController.mapView = self.mapView
+            // searchbarController.matches = self.matches
+            
+            //searchbarController.callback =  {(location, name, item) in
+            //  self.updateLocationonMap(to: location, with: name)
+            // self.destinationLocation = item
+            //  self.navigationController?.popViewController(animated: true)
+            // self.displayPathBetweenTwoPoints()
+            //   self.getDirections()
+            
+            //   }
+            //  self.navigationController?.pushViewController(searchbarController, animated: true)
             
             
         }
         
     }
-   
+    
     
 }
 extension ViewController: UISheetPresentationControllerDelegate {
