@@ -77,10 +77,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         geminiButton.target = self
         geminiButton.action = #selector(geminiButtonTapped)
         
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                view.addGestureRecognizer(tapGesture)
         // checkForPermission()
         
     }
+    @objc func dismissKeyboard() {
+           view.endEditing(true)
+       }
     @IBAction func buttonTapped(_ sender: UIButton) {
         // UIButton tıklandığında yapılacak işlemleri burada belirtin
         //  let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
