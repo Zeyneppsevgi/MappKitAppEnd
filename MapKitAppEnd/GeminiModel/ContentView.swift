@@ -4,11 +4,13 @@
 //
 //  Created by Zeynep Sevgi on 8.05.2024.
 //
-
 import SwiftUI
 import GoogleGenerativeAI
 
 struct ContentView: View {
+    
+    
+    
     let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
     
     @State private var textInput = ""
@@ -19,8 +21,19 @@ struct ContentView: View {
     @State private var chatHistory: [String] = []
     @State private var suggestedPlaces: [String] = []
     
+   var onSuggestedPlaces: (([String]) -> Void)?
+    
+   
+    
     var body: some View {
+        
         VStack {
+            Image("geminiLogo") // Gemimi logosu resmini ekleyin
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200)
+                            .opacity(logoAnimating ? 0.5 : 1)
+                            .animation(.easeInOut, value: logoAnimating)
             if !aiResponse.isEmpty {
                 // AI'nin cevabını göster
                 ChatBubble(message: aiResponse, isUser: false)
@@ -73,6 +86,14 @@ struct ContentView: View {
         }
     }
     
+    func processResponse(_ response: String) {
+        let suggestions = response.components(separatedBy: ",")
+        suggestedPlaces = suggestions
+        
+        // Suggested places callback'i çağır
+        onSuggestedPlaces?(suggestions)
+    }
+    
     func sendMessage() {
         guard !textInput.isEmpty else { return }
         
@@ -101,8 +122,6 @@ struct ContentView: View {
             textInput = "" // Kullanıcı mesajını temizle
         }
     }
-
-    
     
     func startLoadingAnimation() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
@@ -115,12 +134,8 @@ struct ContentView: View {
         timer?.invalidate()
         timer = nil
     }
-    
-    func processResponse(_ response: String) {
-        let suggestions = response.components(separatedBy: ",")
-        suggestedPlaces = suggestions
-    }
 }
+
 
 struct ChatBubble: View {
     let message: String
@@ -148,12 +163,11 @@ struct ChatBubble: View {
             }
         }
     }
+    
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-

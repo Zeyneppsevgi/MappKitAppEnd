@@ -27,6 +27,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     
     private var estimatedTime = 0.0
     
+    var suggestedPlacesCallback: (([String]) -> Void)?
+      
     
     lazy var locationManager: CLLocationManager = {
         var manager = CLLocationManager()
@@ -76,7 +78,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         
         geminiButton.target = self
         geminiButton.action = #selector(geminiButtonTapped)
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
                 view.addGestureRecognizer(tapGesture)
         // checkForPermission()
@@ -100,13 +101,40 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         present(sheetViewController, animated: true)
     }
     @IBAction func geminiButtonTapped(_ sender: Any) {
-        // ContentView'ı UIHostingController içine yerleştir
-        let contentView = ContentView()
-        let hostedController = UIHostingController(rootView: contentView)
-        
-        // ContentView'a geçiş yap
-        navigationController?.pushViewController(hostedController, animated: true)
-    }
+         // ContentView'ı UIHostingController içine yerleştir
+         var contentView = ContentView()
+         contentView.onSuggestedPlaces = { [weak self] places in
+             self?.addSuggestedPlacesToMap(places)
+             // Geri dön
+            // self?.navigationController?.popViewController(animated: true)
+         }
+         let hostedController = UIHostingController(rootView: contentView)
+         
+         // ContentView'a geçiş yap
+         navigationController?.pushViewController(hostedController, animated: true)
+     }
+     
+     func addSuggestedPlacesToMap(_ places: [String]) {
+         // Haritadaki mevcut anotasyonları temizle
+         mapView.removeAnnotations(mapView.annotations)
+         
+         let geocoder = CLGeocoder()
+         
+         for place in places {
+             geocoder.geocodeAddressString(place) { [weak self] (placemarks, error) in
+                 guard let placemarks = placemarks, let placemark = placemarks.first else {
+                     print("Geocode failed with error: \(error?.localizedDescription ?? "unknown error")")
+                     return
+                 }
+                 
+                 let annotation = MKPointAnnotation()
+                 annotation.title = place
+                 annotation.coordinate = placemark.location!.coordinate
+                 self?.mapView.addAnnotation(annotation)
+             }
+         }
+     }
+     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
@@ -124,8 +152,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             locationManager.startUpdatingLocation()
         }
     }
-    
-    
+ 
     func updateLocationonMap(to location: CLLocation, with: String?) {
         let point = MKPointAnnotation()
         point.title = title
@@ -270,6 +297,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
             annotationView.canShowCallout = true
             return annotationView
         }
+       
     }
     func calculateDistanceAndDuration(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, completion: @escaping (String?, String?, Error?) -> Void) {
         let request = MKDirections.Request()
