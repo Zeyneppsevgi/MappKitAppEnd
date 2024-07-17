@@ -102,11 +102,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     }
     @IBAction func geminiButtonTapped(_ sender: Any) {
          // ContentView'ı UIHostingController içine yerleştir
-         var contentView = ContentView()
+         var contentView = ContentView(onSuggestedPlaces: addSuggestedPlacesToMap)
          contentView.onSuggestedPlaces = { [weak self] places in
              self?.addSuggestedPlacesToMap(places)
-             // Geri dön
-            // self?.navigationController?.popViewController(animated: true)
+      
+             // Önerilen yerler haritaya eklendikten sonra bir süre bekleyip geri dön
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+
          }
          let hostedController = UIHostingController(rootView: contentView)
          
@@ -116,7 +120,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
      
      func addSuggestedPlacesToMap(_ places: [String]) {
          // Haritadaki mevcut anotasyonları temizle
-         mapView.removeAnnotations(mapView.annotations)
+         DispatchQueue.main.async {
+             self.mapView.removeAnnotations(self.mapView.annotations)
+         }
+
          
          let geocoder = CLGeocoder()
          

@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import GoogleGenerativeAI
+import MapKit
 
 struct ContentView: View {
     
@@ -86,12 +87,13 @@ struct ContentView: View {
         }
     }
     
-    func processResponse(_ response: String) {
+     func processResponse(_ response: String) {
         let suggestions = response.components(separatedBy: ",")
         suggestedPlaces = suggestions
         
         // Suggested places callback'i çağır
         onSuggestedPlaces?(suggestions)
+       
     }
     
     func sendMessage() {
