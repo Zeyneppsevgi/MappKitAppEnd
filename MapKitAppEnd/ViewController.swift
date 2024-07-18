@@ -107,7 +107,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
              self?.addSuggestedPlacesToMap(places)
       
              // Önerilen yerler haritaya eklendikten sonra bir süre bekleyip geri dön
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self?.navigationController?.popViewController(animated: true)
                     }
 

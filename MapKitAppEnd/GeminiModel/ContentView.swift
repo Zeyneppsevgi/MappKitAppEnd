@@ -7,13 +7,16 @@
 import SwiftUI
 import GoogleGenerativeAI
 import MapKit
+import Foundation
 
 struct ContentView: View {
     
     
-    
     let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
     
+    @State private var searchPhrases = ["haritada göster", "yerleri göster", "mekanları göster","göster","listele","sırala"]
+    
+    @State private var pattern = #"\s*\S+\s+(\d+\.\d+)\s+(\d+\.\d+)\s*"#
     @State private var textInput = ""
     @State private var aiResponse = ""
     @State private var logoAnimating = false
@@ -91,6 +94,35 @@ struct ContentView: View {
         let suggestions = response.components(separatedBy: ",")
         suggestedPlaces = suggestions
         
+        let combinedString = suggestions.joined()
+         print("sonuc:\(combinedString)")
+         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+             print("Invalid regex pattern")
+             exit(1)
+         }
+
+         // Find matches in the text
+         let nsString = combinedString as NSString
+         let matches = regex.matches(in: combinedString, options: [], range: NSRange(location: 0, length: nsString.length))
+
+         // Extract coordinates from matches
+         var coordinates: [(String, String)] = []
+
+         for match in matches {
+             if match.numberOfRanges == 3 {
+                 let latitudeRange = match.range(at: 1)
+                 let longitudeRange = match.range(at: 2)
+                 
+                 let latitude = nsString.substring(with: latitudeRange)
+                 let longitude = nsString.substring(with: longitudeRange)
+                 
+                 coordinates.append((latitude, longitude))
+             }
+         }
+
+         // Print the found coordinates
+         print("Bulunan koordinatlar:")
+         print(coordinates)
         // Suggested places callback'i çağır
         onSuggestedPlaces?(suggestions)
        
@@ -102,6 +134,17 @@ struct ContentView: View {
         Task {
             do {
                 startLoadingAnimation()
+                
+                print("metin: \(textInput)")
+                
+                for phrase in searchPhrases {
+                    if textInput.contains(phrase) {
+                       
+                        textInput = textInput + " koordinatları göster"
+                    }
+                }
+                print("metin: \(textInput)")
+
                 let response = try await model.generateContent(textInput)
                 stopLoadingAnimation()
                 
