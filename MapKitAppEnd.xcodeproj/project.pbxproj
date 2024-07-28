@@ -19,6 +19,7 @@
 		7054291D2B20F0180014A5F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7054291C2B20F0180014A5F9 /* Assets.xcassets */; };
 		705429202B20F0180014A5F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7054291E2B20F0180014A5F9 /* LaunchScreen.storyboard */; };
 		7085D9AC2B85FE26000FEB54 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */; };
+		7094E0782C5671EC0089C211 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7094E0772C5671EC0089C211 /* Combine.swift */; };
 		70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */; };
 		70B5F0D82B2104770020CEF0 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D72B2104770020CEF0 /* LocationCell.swift */; };
 		70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */; };
@@ -38,6 +39,7 @@
 		7054291F2B20F0180014A5F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		705429212B20F0180014A5F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7085D9AB2B85FE26000FEB54 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		7094E0772C5671EC0089C211 /* Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Combine.swift; sourceTree = "<group>"; };
 		70B5F0D42B2103CA0020CEF0 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		70B5F0D72B2104770020CEF0 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		70B5F0D92B21B7660020CEF0 /* SearchBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				70295D8A2BEB8E4000D70E23 /* GeminiChatApp.swift */,
 				70295D8E2BEB8E9800D70E23 /* GenerativeAI-Info.plist */,
 				70295D882BEB8DCB00D70E23 /* ContentView.swift */,
+				7094E0772C5671EC0089C211 /* Combine.swift */,
 			);
 			path = GeminiModel;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70B5F0D52B2103CA0020CEF0 /* LocationSearchController.swift in Sources */,
+				7094E0782C5671EC0089C211 /* Combine.swift in Sources */,
 				70B5F0DA2B21B7660020CEF0 /* SearchBarController.swift in Sources */,
 				70295D8B2BEB8E4000D70E23 /* GeminiChatApp.swift in Sources */,
 				70295D892BEB8DCC00D70E23 /* ContentView.swift in Sources */,

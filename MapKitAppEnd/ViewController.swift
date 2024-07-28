@@ -3,9 +3,11 @@ import SwiftUI
 import MapKit
 import CoreLocation
 import UserNotifications
+import Combine
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
+   
     
     var matches : [MKMapItem] = []
     @IBOutlet weak var mapView: MKMapView!
@@ -17,6 +19,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
+    var viewModel: CoordinateViewModel!
+    var cancellables: Set<AnyCancellable> = []
     
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
@@ -80,14 +84,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         geminiButton.action = #selector(geminiButtonTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
                 view.addGestureRecognizer(tapGesture)
-        // checkForPermission()
+        
+        
+        viewModel = CoordinateViewModel()
+               
+               // Combine kullanarak koordinatları gözlemle
+               viewModel.coordinatePublisher
+                   .sink { [weak self] coordinates in
+                       self?.updateMap(with: coordinates)
+                       print("çalıştı")
+                   }
+                   .store(in: &cancellables)
         
     }
+    func updateMap(with coordinates: [(String, String)]) {
+            mapView.removeAnnotations(mapView.annotations)
+            
+            for coordinate in coordinates {
+                if let latitude = Double(coordinate.0), let longitude = Double(coordinate.1) {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    mapView.addAnnotation(annotation)
+                }
+            }
+            
+            if let firstCoordinate = coordinates.first,
+               let latitude = Double(firstCoordinate.0),
+               let longitude = Double(firstCoordinate.1) {
+                let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                mapView.setRegion(region, animated: true)
+            }
+        }
     @objc func dismissKeyboard() {
            view.endEditing(true)
        }
     @IBAction func buttonTapped(_ sender: UIButton) {
-        // UIButton tıklandığında yapılacak işlemleri burada belirtin
+        // UIButton tıklandığında yapılacak işlemleri burada belirt
         //  let secondViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: " NotificationViewController") as! NotificationViewController
         // secondViewController.estimatedTime = self.estimatedTime
         // self.navigationController?.pushViewController(secondViewController, animated: true)

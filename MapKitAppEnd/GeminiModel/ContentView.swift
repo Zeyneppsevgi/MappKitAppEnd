@@ -8,9 +8,11 @@ import SwiftUI
 import GoogleGenerativeAI
 import MapKit
 import Foundation
+import Combine
 
-struct ContentView: View {
-    
+struct ContentView: View{
+    @StateObject private var viewModel = CoordinateViewModel()
+
     
     let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
     
@@ -123,8 +125,11 @@ struct ContentView: View {
          // Print the found coordinates
          print("Bulunan koordinatlar:")
          print(coordinates)
+         // Koordinatları viewModel'e aktar
+         viewModel.coordinates = coordinates
+         viewModel.coordinatePublisher.send(coordinates)
         // Suggested places callback'i çağır
-        onSuggestedPlaces?(suggestions)
+         onSuggestedPlaces?(suggestions)
        
     }
     
