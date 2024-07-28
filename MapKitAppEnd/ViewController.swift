@@ -3,7 +3,7 @@ import SwiftUI
 import MapKit
 import CoreLocation
 import UserNotifications
-import Combine
+
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKMapViewDelegate {
     
@@ -19,8 +19,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    var viewModel: CoordinateViewModel!
-    var cancellables: Set<AnyCancellable> = []
+   
     
     var sourceLocation : MKMapItem?
     var destinationLocation : MKMapItem?
@@ -85,37 +84,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
                 view.addGestureRecognizer(tapGesture)
         
+        // Notification dinleme
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSuggestedPlacesNotification(_:)), name: .suggestedPlacesNotification, object: nil)
         
-        viewModel = CoordinateViewModel()
-               
-               // Combine kullanarak koordinatları gözlemle
-               viewModel.coordinatePublisher
-                   .sink { [weak self] coordinates in
-                       self?.updateMap(with: coordinates)
-                       print("çalıştı")
-                   }
-                   .store(in: &cancellables)
         
     }
-    func updateMap(with coordinates: [(String, String)]) {
-            mapView.removeAnnotations(mapView.annotations)
-            
-            for coordinate in coordinates {
-                if let latitude = Double(coordinate.0), let longitude = Double(coordinate.1) {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    mapView.addAnnotation(annotation)
-                }
-            }
-            
-            if let firstCoordinate = coordinates.first,
-               let latitude = Double(firstCoordinate.0),
-               let longitude = Double(firstCoordinate.1) {
-                let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-                mapView.setRegion(region, animated: true)
+    deinit {
+            // Observer'ı kaldır
+            NotificationCenter.default.removeObserver(self, name: .suggestedPlacesNotification, object: nil)
+        }
+        
+        @objc func handleSuggestedPlacesNotification(_ notification: Notification) {
+            if let userInfo = notification.userInfo, let places = userInfo["suggestedPlaces"] as? [String] {
+                addSuggestedPlacesToMap(places)
+                print("Bildirim alındı2: \(places)")
             }
         }
+   
     @objc func dismissKeyboard() {
            view.endEditing(true)
        }
@@ -152,28 +137,42 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
      }
      
      func addSuggestedPlacesToMap(_ places: [String]) {
-         // Haritadaki mevcut anotasyonları temizle
-         DispatchQueue.main.async {
-             self.mapView.removeAnnotations(self.mapView.annotations)
-         }
-
-         
-         let geocoder = CLGeocoder()
-         
-         for place in places {
-             geocoder.geocodeAddressString(place) { [weak self] (placemarks, error) in
-                 guard let placemarks = placemarks, let placemark = placemarks.first else {
-                     print("Geocode failed with error: \(error?.localizedDescription ?? "unknown error")")
-                     return
-                 }
-                 
-                 let annotation = MKPointAnnotation()
-                 annotation.title = place
-                 annotation.coordinate = placemark.location!.coordinate
-                 self?.mapView.addAnnotation(annotation)
-             }
-         }
-     }
+         mapView.removeAnnotations(mapView.annotations)
+              
+              let pattern = #"\s*\S+\s+(\d+\.\d+)\s+(\d+\.\d+)\s*"#
+              guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+                  print("Invalid regex pattern")
+                  return
+              }
+              
+              for place in places {
+                  let nsString = place as NSString
+                  let matches = regex.matches(in: place, options: [], range: NSRange(location: 0, length: nsString.length))
+                  
+                  for match in matches {
+                      if match.numberOfRanges == 3 {
+                          let latitudeRange = match.range(at: 1)
+                          let longitudeRange = match.range(at: 2)
+                          
+                          let latitudeString = nsString.substring(with: latitudeRange)
+                          let longitudeString = nsString.substring(with: longitudeRange)
+                          
+                          if let latitude = Double(latitudeString), let longitude = Double(longitudeString) {
+                              let annotation = MKPointAnnotation()
+                              annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                              mapView.addAnnotation(annotation)
+                          }
+                      }
+                  }
+                  print("harita da pinledi")
+              }
+              
+              if let firstAnnotation = mapView.annotations.first {
+                  mapView.showAnnotations(mapView.annotations, animated: true)
+                  mapView.setCenter(firstAnnotation.coordinate, animated: true)
+              }
+          }
+     
      
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

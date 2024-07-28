@@ -8,10 +8,12 @@ import SwiftUI
 import GoogleGenerativeAI
 import MapKit
 import Foundation
-import Combine
 
+extension Notification.Name {
+    static let suggestedPlacesNotification = Notification.Name("suggestedPlacesNotification")
+}
 struct ContentView: View{
-    @StateObject private var viewModel = CoordinateViewModel()
+   
 
     
     let model = GenerativeModel(name: "gemini-pro", apiKey: APIKey.default)
@@ -125,9 +127,9 @@ struct ContentView: View{
          // Print the found coordinates
          print("Bulunan koordinatlar:")
          print(coordinates)
-         // Koordinatları viewModel'e aktar
-         viewModel.coordinates = coordinates
-         viewModel.coordinatePublisher.send(coordinates)
+         // Notification gönder
+         NotificationCenter.default.post(name: .suggestedPlacesNotification, object: nil, userInfo: ["suggestedPlaces": suggestions])
+         print("Bildirim gönderildi: \(suggestions)")
         // Suggested places callback'i çağır
          onSuggestedPlaces?(suggestions)
        
