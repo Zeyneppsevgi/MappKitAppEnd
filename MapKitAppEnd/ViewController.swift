@@ -119,21 +119,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDe
         present(sheetViewController, animated: true)
     }
     @IBAction func geminiButtonTapped(_ sender: Any) {
-         // ContentView'ı UIHostingController içine yerleştir
-         var contentView = ContentView(onSuggestedPlaces: addSuggestedPlacesToMap)
-         contentView.onSuggestedPlaces = { [weak self] places in
-             self?.addSuggestedPlacesToMap(places)
-      
-             // Önerilen yerler haritaya eklendikten sonra bir süre bekleyip geri dön
+        var contentView = ContentView(onSuggestedPlaces: addSuggestedPlacesToMap)
+                contentView.onSuggestedPlaces = { [weak self] places in
+                    self?.addSuggestedPlacesToMap(places)
+                    
+                    // Önerilen yerler haritaya eklendikten sonra bir süre bekleyip geri dön
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self?.navigationController?.popViewController(animated: true)
                     }
-
-         }
-         let hostedController = UIHostingController(rootView: contentView)
-         
-         // ContentView'a geçiş yap
-         navigationController?.pushViewController(hostedController, animated: true)
+                }
+                let hostedController = UIHostingController(rootView: contentView)
+                
+                // ContentView'a geçiş yap
+                navigationController?.pushViewController(hostedController, animated: true)
      }
      
      func addSuggestedPlacesToMap(_ places: [String]) {

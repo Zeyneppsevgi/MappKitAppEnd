@@ -30,7 +30,46 @@ struct ContentView: View{
     @State private var suggestedPlaces: [String] = []
     
    var onSuggestedPlaces: (([String]) -> Void)?
-    
+    func processResponse(_ response: String) {
+            let suggestions = response.components(separatedBy: ",")
+            suggestedPlaces = suggestions
+            
+            let combinedString = suggestions.joined()
+            print("sonuc:\(combinedString)")
+            guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+                print("Invalid regex pattern")
+                exit(1)
+            }
+
+            // Find matches in the text
+            let nsString = combinedString as NSString
+            let matches = regex.matches(in: combinedString, options: [], range: NSRange(location: 0, length: nsString.length))
+
+            // Extract coordinates from matches
+            var coordinates: [(String, String)] = []
+
+            for match in matches {
+                if match.numberOfRanges == 3 {
+                    let latitudeRange = match.range(at: 1)
+                    let longitudeRange = match.range(at: 2)
+                    
+                    let latitude = nsString.substring(with: latitudeRange)
+                    let longitude = nsString.substring(with: longitudeRange)
+                    
+                    coordinates.append((latitude, longitude))
+                }
+            }
+
+            // Print the found coordinates
+            print("Bulunan koordinatlar:")
+            print(coordinates)
+            // Notification gönder
+            NotificationCenter.default.post(name: .suggestedPlacesNotification, object: nil, userInfo: ["suggestedPlaces": suggestions])
+            print("Bildirim gönderildi: \(suggestions)")
+            // Suggested places callback'i çağır
+            onSuggestedPlaces?(suggestions)
+        }
+
    
     
     var body: some View {
@@ -94,7 +133,7 @@ struct ContentView: View{
         }
     }
     
-     func processResponse(_ response: String) {
+   /*  func processResponse(_ response: String) {
         let suggestions = response.components(separatedBy: ",")
         suggestedPlaces = suggestions
         
@@ -133,7 +172,7 @@ struct ContentView: View{
         // Suggested places callback'i çağır
          onSuggestedPlaces?(suggestions)
        
-    }
+    }*/
     
     func sendMessage() {
         guard !textInput.isEmpty else { return }
